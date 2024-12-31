@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  recipe-service:
+    build: ./recipems
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres-recipes
+  transaction-service:
+    build: ./transactionms
+    ports:
+      - "8082:8082"
+    depends_on:
+      - postgres-transactions
+
+  postgres-recipes:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB= recipems
+      - POSTGRES_USER= rossyrecipe
+      - POSTGRES_PASSWORD= qwerty123
+    ports:
+      - '7541:5432'
+
+  postgres-transactions:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=transactionms
+      - POSTGRES_USER=rossytransaction
+      - POSTGRES_PASSWORD= qwerty123
+    ports:
+      - '7542:5432'
+
